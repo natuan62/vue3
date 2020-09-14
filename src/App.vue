@@ -1,35 +1,44 @@
 <template>
-  <HelloWorld msg="Vue 3" />
-  <p>Spaces left {{spaceLeft}} from {{capacity}}</p>
-  <p>capacity: {{capacity}}</p>
-  <button @click="increaseCapacity()">increaseCapacity</button>
-  <h2>Attending</h2>
-  <ul>
-    <li v-for="(item,index) in attending" :key="index">{{item}}</li>
-  </ul>
-  <h2>watch example</h2>
-  <div>
-    search for
-    <input type="text" v-model="searchInput" />
-    <div>
-      <p>Loading: {{loading}}</p>
-      <p>Error: {{error}}</p>
-      <p>number of events: {{result}}</p>
-    </div>
-    <!--
+  <div v-if="error">Uh no ... {{error}}</div>
+  <Suspense v-else>
+    <template #default>
+      <HelloWorld msg="Vue 3" />
+      <p>Spaces left {{spaceLeft}} from {{capacity}}</p>
+      <p>capacity: {{capacity}}</p>
+      <button @click="increaseCapacity()">increaseCapacity</button>
+      <h2>Attending</h2>
+      <ul>
+        <li v-for="(item,index) in attending" :key="index">{{item}}</li>
+      </ul>
+      <h2>watch example</h2>
+      <div>
+        search for
+        <input type="text" v-model="searchInput" />
+        <div>
+          <p>Loading: {{loading}}</p>
+          <p>Error: {{error}}</p>
+          <p>number of events: {{result}}</p>
+        </div>
+        <!--
      <div>
       <p>Loading: {{ getEvents.loading }}</p>
       <p>Error: {{ getEvents.error }}</p>
       <p>Number of events: {{ getEvents.results }}</p>
     </div>
-    -->
-  </div>
+        -->
+      </div>
+    </template>
+    <template #fallback>
+      <p>Loading...</p>
+    </template>
+  </Suspense>
 </template>
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
 // import useEventSpace from "@/use/event-space";
 import {
+  onErrorCaptured,
   // onActivated,
   // onBeforeMount,
   // onBeforeUnmount,
@@ -54,6 +63,12 @@ export default {
     HelloWorld,
   },
   setup() {
+    // suspense
+    const error = ref(null);
+    onErrorCaptured((e) => {
+      error.value = e;
+      return true;
+    });
     // watch lesson
     const searchInput = ref("");
 
@@ -71,7 +86,7 @@ export default {
       }
     });
 
-    return { searchInput, ...getEvents };
+    return { error, searchInput, ...getEvents };
     // return { searchInput, getEvents };
 
     // watchEffect(() => {
