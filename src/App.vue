@@ -16,6 +16,13 @@
       <p>Error: {{error}}</p>
       <p>number of events: {{result}}</p>
     </div>
+    <!--
+     <div>
+      <p>Loading: {{ getEvents.loading }}</p>
+      <p>Error: {{ getEvents.error }}</p>
+      <p>Number of events: {{ getEvents.results }}</p>
+    </div>
+    -->
   </div>
 </template>
 
@@ -50,7 +57,9 @@ export default {
     // watch lesson
     const searchInput = ref("");
 
-    const getEvents = usePrommise(keyword => eventApi.getEventCount(keyword.value));
+    const getEvents = usePrommise((keyword) =>
+      eventApi.getEventCount(keyword.value)
+    );
 
     watch(searchInput, () => {
       if (searchInput.value !== "") {
@@ -63,6 +72,7 @@ export default {
     });
 
     return { searchInput, ...getEvents };
+    // return { searchInput, getEvents };
 
     // watchEffect(() => {
     //   // run every
