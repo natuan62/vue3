@@ -40,6 +40,7 @@ import {
 } from "vue";
 // use/event-mapping.js
 //  import useMapping from "@/use/mapping";
+import usePrommise from "@/composables/use-promise";
 export default {
   name: "App",
   components: {
@@ -48,32 +49,20 @@ export default {
   setup() {
     // watch lesson
     const searchInput = ref("");
-    const result = ref(null);
-    const loading = ref(null);
-    const error = ref(null);
 
-    async function loadData(keyword) {
-      loading.value = true;
-      error.value = null;
-      result.value = null;
-      try {
-        result.value = 10;
-      } catch (err) {
-        error.value = err;
-      } finally {
-        loading.value = false;
-      }
-    }
+    const getEvents = usePrommise(keyword => eventApi.getEventCount(keyword.value));
 
     watch(searchInput, () => {
       if (searchInput.value !== "") {
-        loadData(searchInput);
+        // loadData(searchInput);
+        getEvents.createPromise(searchInput);
       } else {
-        result.value = null;
+        // result.value = null;
+        getEvents.results.value = null;
       }
     });
 
-    return { searchInput, loading, error, result };
+    return { searchInput, ...getEvents };
 
     // watchEffect(() => {
     //   // run every
