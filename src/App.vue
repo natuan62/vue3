@@ -1,15 +1,19 @@
 <template>
   <h2>Hello {{message}}</h2>
+  <BaseInput v-model:modelValue="inputValue" />
 </template>
 <script>
 import { ref } from "vue";
+import BaseInput from "@/components/BaseInput";
 export default {
   name: "App",
   components: {},
   setup() {
     const message = ref("Vue 3");
 
-    return { message };
+    // new v-model
+    const inputValue = ref("");
+    return { message, inputValue };
   },
 };
 </script>
