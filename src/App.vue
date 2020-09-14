@@ -1,6 +1,7 @@
 <template>
 <HelloWorld msg="Vue 3" />
-<div>capacity: {{capacity}}</div>
+<p>capacity: {{capacity}}</p>
+<button @click="increaseCapacity()">increaseCapacity</button>
 </template>
 
 <script>
@@ -17,8 +18,14 @@ export default {
     setup() {
         const capacity = ref(3);
 
+        function increaseCapacity() {
+            console.log('increaseCapacity')
+            capacity.value++;
+        }
+
         return {
-            capacity
+            capacity,
+            increaseCapacity
         }
     }
 }
