@@ -12,6 +12,8 @@
     search for
     <input type="text" v-model="searchInput" />
     <div>
+      <p>Loading: {{loading}}</p>
+      <p>Error: {{error}}</p>
       <p>number of events: {{result}}</p>
     </div>
   </div>
@@ -19,22 +21,22 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
-import useEventSpace from "@/use/event-space";
+// import useEventSpace from "@/use/event-space";
 import {
-  onActivated,
-  onBeforeMount,
-  onBeforeUnmount,
-  onBeforeUpdate,
-  onDeactivated,
-  onErrorCaptured,
-  onMounted,
-  onRenderTracked,
-  onRenderTriggered,
-  onUnmounted,
-  onUpdated,
+  // onActivated,
+  // onBeforeMount,
+  // onBeforeUnmount,
+  // onBeforeUpdate,
+  // onDeactivated,
+  // onErrorCaptured,
+  // onMounted,
+  // onRenderTracked,
+  // onRenderTriggered,
+  // onUnmounted,
+  // onUpdated,
   ref,
   watch,
-  watchEffect,
+  // watchEffect,
 } from "vue";
 // use/event-mapping.js
 //  import useMapping from "@/use/mapping";
@@ -46,7 +48,32 @@ export default {
   setup() {
     // watch lesson
     const searchInput = ref("");
-    const result = ref(0);
+    const result = ref(null);
+    const loading = ref(null);
+    const error = ref(null);
+
+    async function loadData(keyword) {
+      loading.value = true;
+      error.value = null;
+      result.value = null;
+      try {
+        result.value = 10;
+      } catch (err) {
+        error.value = err;
+      } finally {
+        loading.value = false;
+      }
+    }
+
+    watch(searchInput, () => {
+      if (searchInput.value !== "") {
+        loadData(searchInput);
+      } else {
+        result.value = null;
+      }
+    });
+
+    return { searchInput, loading, error, result };
 
     // watchEffect(() => {
     //   // run every
@@ -56,13 +83,13 @@ export default {
 
     // specify
     // only if searchInput is changed
-    watch(
-      searchInput,
-      () => {
-        result.value = 10;
-      },
-      { immediate: true }
-    );
+    // watch(
+    //   searchInput,
+    //   () => {
+    //     result.value = 10;
+    //   },
+    //   { immediate: true }
+    // );
     // watch(searchInput, (newVal, oldVal) => {});
 
     // multi watch
@@ -71,25 +98,25 @@ export default {
     // });
 
     // lifecycle hooks
-    onBeforeMount(() => {});
-    onMounted(() => {});
+    // onBeforeMount(() => {});
+    // onMounted(() => {});
 
-    onBeforeUpdate(() => {});
-    onUpdated(() => {});
+    // onBeforeUpdate(() => {});
+    // onUpdated(() => {});
 
-    onBeforeUnmount(() => {});
-    onUnmounted(() => {});
+    // onBeforeUnmount(() => {});
+    // onUnmounted(() => {});
 
-    // vue2 newer lifecyle
-    onActivated(() => {});
-    onDeactivated(() => {});
-    onErrorCaptured(() => {});
+    // // vue2 newer lifecyle
+    // onActivated(() => {});
+    // onDeactivated(() => {});
+    // onErrorCaptured(() => {});
 
-    // new vue3 lifecyle
-    onRenderTracked(() => {});
-    onRenderTriggered(() => {});
+    // // new vue3 lifecyle
+    // onRenderTracked(() => {});
+    // onRenderTriggered(() => {});
 
-    return { searchInput, result, ...useEventSpace() };
+    // return { searchInput, result, ...useEventSpace() };
 
     // return useEventSpace();
     // return { ...useEventSpace(), ...useMapping() }
