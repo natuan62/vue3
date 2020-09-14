@@ -11,31 +11,14 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
-import { computed, ref } from "vue";
-
+import useEventSpace from "@/use/event-space";
 export default {
   name: "App",
   components: {
     HelloWorld,
   },
   setup() {
-    const capacity = ref(3);
-    const attending = ref(["john", "kenny", "bob"]);
-    const spaceLeft = computed(() => {
-      return capacity.value - attending.value.length;
-    });
-
-    function increaseCapacity() {
-      console.log("increaseCapacity");
-      capacity.value++;
-    }
-
-    return {
-      capacity,
-      attending,
-      spaceLeft,
-      increaseCapacity,
-    };
+    return useEventSpace();
   },
 };
 </script>
