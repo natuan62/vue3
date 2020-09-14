@@ -1,13 +1,13 @@
 <template>
   <h2>Hello {{message}}</h2>
-  <BaseInput v-model:modelValue="inputValue" />
+  <BaseInput v-model="inputValue" />
 </template>
 <script>
 import { ref } from "vue";
 import BaseInput from "@/components/BaseInput";
 export default {
   name: "App",
-  components: {},
+  components: { BaseInput },
   setup() {
     const message = ref("Vue 3");
 
