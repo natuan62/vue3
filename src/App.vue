@@ -12,6 +12,19 @@
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
 import useEventSpace from "@/use/event-space";
+import {
+  onActivated,
+  onBeforeMount,
+  onBeforeUnmount,
+  onBeforeUpdate,
+  onDeactivated,
+  onErrorCaptured,
+  onMounted,
+  onRenderTracked,
+  onRenderTriggered,
+  onUnmounted,
+  onUpdated,
+} from "vue";
 // use/event-mapping.js
 //  import useMapping from "@/use/mapping";
 export default {
@@ -20,6 +33,25 @@ export default {
     HelloWorld,
   },
   setup() {
+    // lifecycle hooks
+    onBeforeMount(() => {});
+    onMounted(() => {});
+
+    onBeforeUpdate(() => {});
+    onUpdated(() => {});
+
+    onBeforeUnmount(() => {});
+    onUnmounted(() => {});
+
+    // vue2 newer lifecyle
+    onActivated();
+    onDeactivated();
+    onErrorCaptured(() => {})
+
+    // new vue3 lifecyle
+    onRenderTracked();
+    onRenderTriggered();
+
     return useEventSpace();
     // return { ...useEventSpace(), ...useMapping() }
 
