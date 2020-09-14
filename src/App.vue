@@ -2,7 +2,7 @@
   <h2>Hello {{message}}</h2>
   <BaseInput v-model="inputValue" />
   <h2>Salutations component</h2>
-  <SalutationName v-model:salutation="salutation" v-model:name="name" />
+  <SalutationName v-model:salutation.capitalize="salutation" v-model:name.capitalize="name" />
   <button @click="viewValue()">View value</button>
 </template>
 <script>
@@ -34,7 +34,6 @@ export default {
     function viewValue() {
       console.log("viewValue()", event.salutation, event.name);
     }
-    // return { ...toRefs(event), viewValue };
     return { ...toRefs(event), viewValue };
   },
 };
