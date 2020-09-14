@@ -2,14 +2,14 @@
   <h2>Hello {{message}}</h2>
 </template>
 <script>
-import {ref} from "vue";
+import { ref } from "vue";
 export default {
   name: "App",
   components: {},
   setup() {
     const message = ref("Vue 3");
 
-    return {message}
+    return { message };
   },
 };
 </script>
