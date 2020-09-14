@@ -2,6 +2,18 @@
   <div v-if="error">Uh no ... {{error}}</div>
   <Suspense v-else>
     <template #default>
+      <teleport
+        to="#end-of-body"
+        :disabled="!showText"
+      >This should be end top of body</teleport>
+      <teleport
+        to="#end-of-body"
+        :disabled="!showText2"
+      >This should be end top of body 2</teleport>
+      <div>This should be at the top.</div>
+      <button @click="showText = !showText">Show Text</button>
+      <button @click="showText2 = !showText2">Show Text 2</button>
+
       <HelloWorld msg="Vue 3" />
       <p>Spaces left {{spaceLeft}} from {{capacity}}</p>
       <p>capacity: {{capacity}}</p>
@@ -63,6 +75,10 @@ export default {
     HelloWorld,
   },
   setup() {
+    // teleport
+    const showText = ref(false);
+    const showText2 = ref(false);
+
     // suspense
     const error = ref(null);
     onErrorCaptured((e) => {
@@ -86,7 +102,7 @@ export default {
       }
     });
 
-    return { error, searchInput, ...getEvents };
+    return { showText, showText2, error, searchInput, ...getEvents };
     // return { searchInput, getEvents };
 
     // watchEffect(() => {
