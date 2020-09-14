@@ -20,9 +20,17 @@ export default {
     HelloWorld,
   },
   setup() {
-    return useEventSpace();
+    // return useEventSpace();
     // return { ...useEventSpace(), ...useMapping() }
 
+    const {
+      capacity,
+      attending,
+      spacesLeft,
+      increaseCapacity,
+    } = useEventSpace();
+    // const { map, embedId } = useMapping();
+    return { capacity, attending, spacesLeft, increaseCapacity };
   },
 };
 </script>
