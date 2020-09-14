@@ -7,6 +7,14 @@
   <ul>
     <li v-for="(item,index) in attending" :key="index">{{item}}</li>
   </ul>
+  <h2>watch example</h2>
+  <div>
+    search for
+    <input type="text" v-model="searchInput" />
+    <div>
+      <p>number of events: {{result}}</p>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -24,6 +32,8 @@ import {
   onRenderTriggered,
   onUnmounted,
   onUpdated,
+  ref,
+  watchEffect,
 } from "vue";
 // use/event-mapping.js
 //  import useMapping from "@/use/mapping";
@@ -33,6 +43,16 @@ export default {
     HelloWorld,
   },
   setup() {
+    // watch lesson
+    const searchInput = ref("");
+    const result = ref(0);
+
+    watchEffect(() => {
+      // run every 
+      // result.value = eventApi.getEventCount(searchInput.value);
+      result.value = 10;
+    });
+
     // lifecycle hooks
     onBeforeMount(() => {});
     onMounted(() => {});
@@ -44,15 +64,17 @@ export default {
     onUnmounted(() => {});
 
     // vue2 newer lifecyle
-    onActivated();
-    onDeactivated();
-    onErrorCaptured(() => {})
+    onActivated(() => {});
+    onDeactivated(() => {});
+    onErrorCaptured(() => {});
 
     // new vue3 lifecyle
-    onRenderTracked();
-    onRenderTriggered();
+    onRenderTracked(() => {});
+    onRenderTriggered(() => {});
 
-    return useEventSpace();
+    return { searchInput, result, ...useEventSpace() };
+
+    // return useEventSpace();
     // return { ...useEventSpace(), ...useMapping() }
 
     // const {
