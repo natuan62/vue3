@@ -33,6 +33,7 @@ import {
   onUnmounted,
   onUpdated,
   ref,
+  watch,
   watchEffect,
 } from "vue";
 // use/event-mapping.js
@@ -47,11 +48,23 @@ export default {
     const searchInput = ref("");
     const result = ref(0);
 
-    watchEffect(() => {
-      // run every 
-      // result.value = eventApi.getEventCount(searchInput.value);
+    // watchEffect(() => {
+    //   // run every
+    //   // result.value = eventApi.getEventCount(searchInput.value);
+    //   result.value = 10;
+    // });
+
+    // specify
+    // only if searchInput is changed
+    watch(searchInput, () => {
       result.value = 10;
     });
+    // watch(searchInput, (newVal, oldVal) => {});
+
+    // multi watch
+    // watch([firstName, lastName], ([newFirst, newLast], [oldFirst, oldLast]) => {
+    //   // bla bla
+    // });
 
     // lifecycle hooks
     onBeforeMount(() => {});
