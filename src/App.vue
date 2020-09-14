@@ -56,9 +56,13 @@ export default {
 
     // specify
     // only if searchInput is changed
-    watch(searchInput, () => {
-      result.value = 10;
-    });
+    watch(
+      searchInput,
+      () => {
+        result.value = 10;
+      },
+      { immediate: true }
+    );
     // watch(searchInput, (newVal, oldVal) => {});
 
     // multi watch
