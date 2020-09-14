@@ -12,6 +12,8 @@
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
 import useEventSpace from "@/use/event-space";
+// use/event-mapping.js
+//  import useMapping from "@/use/mapping";
 export default {
   name: "App",
   components: {
@@ -19,6 +21,8 @@ export default {
   },
   setup() {
     return useEventSpace();
+    // return { ...useEventSpace(), ...useMapping() }
+
   },
 };
 </script>
