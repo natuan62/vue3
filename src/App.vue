@@ -11,7 +11,8 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld.vue";
-import { computed, ref } from "vue";
+import { computed, reactive, toRefs } from "vue";
+// import { computed, reactive, ref, toRef } from "vue";
 
 export default {
   name: "App",
@@ -19,23 +20,36 @@ export default {
     HelloWorld,
   },
   setup() {
-    const capacity = ref(3);
-    const attending = ref(["john", "kenny", "bob"]);
-    const spaceLeft = computed(() => {
-      return capacity.value - attending.value.length;
+    const event = reactive({
+      capacity: 4,
+      attending: ["Tim", "Bob", "Joe"],
+      spacesLeft: computed(() => {
+        return event.capacity - event.attending.length;
+      }),
     });
-
     function increaseCapacity() {
-      console.log("increaseCapacity");
-      capacity.value++;
+      event.capacity++;
     }
+    //  return toRefs(event); // use without increaseCapacity method
+    return { ...toRefs(event), increaseCapacity };
 
-    return {
-      capacity,
-      attending,
-      spaceLeft,
-      increaseCapacity,
-    };
+    // const capacity = ref(3);
+    // const attending = ref(["john", "kenny", "bob"]);
+    // const spaceLeft = computed(() => {
+    //   return capacity.value - attending.value.length;
+    // });
+
+    // function increaseCapacity() {
+    //   console.log("increaseCapacity");
+    //   capacity.value++;
+    // }
+
+    // return {
+    //   capacity,
+    //   attending,
+    //   spaceLeft,
+    //   increaseCapacity,
+    // };
   },
 };
 </script>
